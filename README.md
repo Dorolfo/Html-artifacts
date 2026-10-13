@@ -69,3 +69,7 @@ A identidade que vem na skill é neutra. Para usar a sua, troque a cor de destaq
 ## Ver o exemplo
 
 Abra `examples/investigacao-ticket.html` no navegador. Acrescente `?tema=escuro` ao endereço para ver o tema escuro.
+
+## Licença
+
+MIT. Use, adapte e redistribua à vontade. Veja [LICENSE](LICENSE).
