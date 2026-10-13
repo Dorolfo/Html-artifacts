@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[TÍTULO DO DOCUMENTO]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark">
+<style>
+/* Tokens de marca: troque aqui e só aqui. Ver references/design-system.md */
+:root {
+  --accent: #2449C8; --accent-soft: #5B78E6; --accent-text: #2449C8;
+  --ink: #1a1612; --ink-soft: #3d342b; --ink-mute: #7a6f63;
+  --paper: #f5f1ea; --paper-warm: #ede6d9; --highlight: #e4e9fb;
+  --rule: #d4c9b8; --rule-soft: #e5dccb;
+  --olive: #6b6d3a; --danger: #a64545;
+  --olive-bg: #ecf0e3; --danger-bg: #f5e6e6;
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: #8FA6FF; --accent-soft: #8FA6FF; --accent-text: #8FA6FF;
+    --ink: #EEE6DA; --ink-soft: #C9BFB2; --ink-mute: #9A8F82;
+    --paper: #17130F; --paper-warm: #211C17; --highlight: #1E2440;
+    --rule: #3A332C; --rule-soft: #2A241F; --olive: #A4A66A; --danger: #D98080;
+    --olive-bg: #25271A; --danger-bg: #331C1C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --accent: #8FA6FF; --accent-soft: #8FA6FF; --accent-text: #8FA6FF;
+  --ink: #EEE6DA; --ink-soft: #C9BFB2; --ink-mute: #9A8F82;
+  --paper: #17130F; --paper-warm: #211C17; --highlight: #1E2440;
+  --rule: #3A332C; --rule-soft: #2A241F; --olive: #A4A66A; --danger: #D98080;
+  --olive-bg: #25271A; --danger-bg: #331C1C;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+body {
+  font-family: var(--sans); background: var(--paper); color: var(--ink);
+  line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip;
+  font-variant-numeric: tabular-nums;
+}
+.container { max-width: 1080px; margin: 0 auto; padding: 3.5rem clamp(16px, 4vw, 2rem) 5rem; }
+
+.eyebrow {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-mute); margin-bottom: 1.5rem;
+}
+.eyebrow .ctx { color: var(--accent-text); }
+.sep { color: var(--rule); }
+.logo-mark { width: auto; display: block; }
+.logo-mark.eyebrow-size { height: 18px; }
+.logo-mark.footer-size { height: 16px; }
+
+h1.hero {
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.05;
+  letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+h1.hero em { font-style: italic; color: var(--accent); }
+.lede {
+  font-family: var(--display); font-size: 1.15rem; line-height: 1.55;
+  color: var(--ink-soft); max-width: 38em; margin-bottom: 2rem;
+}
+
+.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+.pill {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem; border: 1px solid var(--rule); border-radius: 2px;
+  color: var(--ink-soft);
+}
+.pill b { font-weight: 500; color: var(--ink-mute); margin-right: 0.4rem; }
+.pill.ok { background: var(--olive-bg); border-color: transparent; color: var(--olive); }
+.pill.med { background: var(--highlight); border-color: transparent; color: var(--accent-text); }
+
+.tldr {
+  background: var(--paper-warm); border-left: 3px solid var(--accent);
+  padding: 1.5rem 1.75rem; margin-bottom: 1rem;
+  font-family: var(--display); font-size: 1.02rem; color: var(--ink-soft);
+}
+.tldr strong {
+  display: block; font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 0.5rem;
+}
+
+h2.section-h {
+  font-family: var(--display); font-weight: 600; font-size: 1.8rem;
+  letter-spacing: -0.015em; line-height: 1.15;
+  margin: 3.5rem 0 1rem; padding-top: 2.5rem; border-top: 2px solid var(--ink);
+  display: flex; align-items: baseline; gap: 1rem;
+}
+h2.section-h .num { font-family: var(--mono); font-size: 0.7rem; font-weight: 400; color: var(--accent-text); letter-spacing: 0.08em; }
+h2.section-h em { font-style: italic; color: var(--accent); }
+p { margin-bottom: 1rem; max-width: 44em; color: var(--ink-soft); }
+p strong { color: var(--ink); font-weight: 600; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--paper-warm); padding: 0.1em 0.35em; border-radius: 2px; }
+
+.signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.signal { border: 1px solid var(--rule); padding: 1.25rem 1.5rem; }
+.signal .k { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); }
+.signal .v { font-family: var(--display); font-size: 2.4rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0.35rem 0 0.25rem; }
+.signal .d { font-size: 0.85rem; color: var(--ink-mute); }
+.signal.hot { border-color: var(--accent); background: var(--highlight); }
+.signal.hot .v { color: var(--accent-text); }
+
+.diagram { margin: 1.5rem 0; padding: 1.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.caption { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: 1rem; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.scroll-x { overflow-x: auto; }
+.scroll-x svg { min-width: 640px; }
+
+svg .box { fill: var(--paper-warm); stroke: var(--ink); stroke-width: 1; }
+svg .box-hot { fill: var(--highlight); stroke: var(--accent); stroke-width: 1.5; }
+svg .t-mono { font-family: var(--mono); font-size: 10px; fill: var(--ink-mute); letter-spacing: 0.8px; }
+svg .t-mono-hot { font-family: var(--mono); font-size: 10px; fill: var(--accent-text); letter-spacing: 0.8px; }
+svg .t-title { font-family: var(--display); font-size: 14px; font-weight: 600; fill: var(--ink); }
+svg .t-sub { font-family: var(--sans); font-size: 11px; fill: var(--ink-mute); }
+svg .arrow { stroke: var(--ink); stroke-width: 1; fill: none; }
+svg .axis { stroke: var(--rule); stroke-width: 1; }
+svg .grid { stroke: var(--rule-soft); stroke-width: 1; }
+svg .line-hot { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-ghost { stroke: var(--ink-mute); stroke-width: 1.25; stroke-dasharray: 5 4; fill: none; }
+svg .dot { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+svg .dot-ticket { fill: var(--accent); stroke: var(--accent); }
+
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+table.simple { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 560px; }
+table.simple th, table.simple td { text-align: left; padding: 0.75rem 0.85rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.simple th { font-family: var(--mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-mute); font-weight: 500; border-bottom: 2px solid var(--ink); }
+table.simple td.mono { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; }
+table.simple td.num { font-family: var(--mono); font-size: 0.85rem; text-align: right; white-space: nowrap; }
+table.simple th.num { text-align: right; }
+.sev { font-family: var(--mono); font-size: 0.68rem; padding: 0.18rem 0.5rem; border-radius: 2px; letter-spacing: 0.05em; font-weight: 500; display: inline-block; white-space: nowrap; }
+.sev.high { background: var(--danger-bg); color: var(--danger); }
+.sev.med { background: var(--highlight); color: var(--accent-text); }
+.sev.low { background: var(--olive-bg); color: var(--olive); }
+
+.codeblock { background: #1a1612; color: #EEE6DA; font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; padding: 1.25rem 1.5rem; margin: 1.25rem 0; overflow-x: auto; border-radius: 2px; }
+.codeblock .lbl { display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9A8F82; margin-bottom: 0.75rem; }
+.codeblock .del { color: #D98080; }
+.codeblock .add { color: #A4A66A; }
+.codeblock .cm { color: #9A8F82; }
+.codeblock pre { font: inherit; white-space: pre; }
+
+.callout { background: var(--highlight); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-family: var(--display); font-size: 1.1rem; line-height: 1.45; color: var(--ink); max-width: 44em; }
+
+footer { margin-top: 4.5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 0.72rem; color: var(--ink-mute); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+footer .footer-left { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .container { padding: 2.5rem 16px 4rem; }
+  h1.hero { font-size: 2.2rem; }
+  h2.section-h { font-size: 1.5rem; }
+  .signals { grid-template-columns: 1fr; }
+  .signal .v { font-size: 2rem; }
+}
+</style>
+<script>(function(){var t=new URLSearchParams(location.search).get('tema');if(t)document.documentElement.dataset.theme=t==='escuro'?'dark':'light';})();</script>
+</head>
+<body>
+<div class="container">
+
+  <!-- EYEBROW · primeira coisa da página. Marca em texto ou SVG inline, se houver. -->
+  <div class="eyebrow">
+    <span>[PROJETO]</span>
+    <span class="sep">·</span>
+    <span class="ctx">[CONTEXTO]</span>
+  </div>
+
+  <!-- H1 · uma única palavra em itálico de destaque -->
+  <h1 class="hero">[Título] com <em>uma palavra</em> em destaque.</h1>
+
+  <!-- LEDE · 1 parágrafo: o que é o documento e para quem -->
+  <p class="lede">[Abertura em duas ou três frases.]</p>
+
+  <!-- PILLS · metadados curtos. Classes: .pill, .pill.ok, .pill.med -->
+  <div class="pills">
+    <span class="pill"><b>Rótulo</b>valor</span>
+    <span class="pill ok"><b>Status</b>valor</span>
+  </div>
+
+  <!-- RESUMO · a conclusão antes das seções -->
+  <div class="tldr">
+    <strong>Resumo</strong>
+    [Duas a quatro frases com a conclusão principal.]
+  </div>
+
+  <!-- SEÇÃO · h2 numerado; o título vai dentro de um span -->
+  <h2 class="section-h"><span class="num">01</span><span>Título da <em>seção</em></span></h2>
+  <p>[Prosa. Frases substantivas. Bullet só para lista genuinamente paralela.]</p>
+
+  <!-- NÚMEROS GRANDES · até 3 por linha; .signal.hot destaca um -->
+  <div class="signals">
+    <div class="signal"><div class="k">Rótulo</div><div class="v">00</div><div class="d">contexto do número</div></div>
+    <div class="signal"><div class="k">Rótulo</div><div class="v">00</div><div class="d">contexto do número</div></div>
+    <div class="signal hot"><div class="k">Rótulo</div><div class="v">00</div><div class="d">contexto do número</div></div>
+  </div>
+
+  <!-- DIAGRAMA · SVG inline com var(--token). Classes prontas: .box, .box-hot,
+       .t-mono, .t-title, .t-sub, .arrow, .axis, .grid, .line-hot, .line-ghost, .dot -->
+  <div class="diagram">
+    <div class="caption">Legenda do diagrama · com a fonte do dado</div>
+    <div class="scroll-x">
+      <svg viewBox="0 0 960 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="[descrição]">
+        <rect class="box" x="4" y="24" width="200" height="72"/>
+        <text class="t-mono" x="16" y="44">01 · ETAPA</text>
+        <text class="t-title" x="16" y="66">Nome da etapa</text>
+        <text class="t-sub" x="16" y="84">o que acontece aqui</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- TABELA · sempre dentro de .table-wrap. Badges: .sev.high, .sev.med, .sev.low -->
+  <div class="table-wrap">
+  <table class="simple">
+    <thead><tr><th>Coluna</th><th class="num">Número</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Linha</td><td class="num">0,00</td><td><span class="sev low">ok</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <!-- CÓDIGO · .del e .add para diff, .cm para comentário -->
+  <div class="codeblock">
+    <span class="lbl">arquivo · contexto</span>
+<pre><span class="del">- linha removida</span>
+<span class="add">+ linha adicionada</span></pre>
+  </div>
+
+  <!-- DESTAQUE · uma frase que o leitor precisa levar -->
+  <div class="callout">[A frase mais importante da seção.]</div>
+
+  <footer>
+    <span class="footer-left"><span>[Projeto] · [Documento]</span></span>
+    <span>[Fonte dos dados · data]</span>
+  </footer>
+
+</div>
+</body>
+</html>

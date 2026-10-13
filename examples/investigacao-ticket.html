@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigação de ticket · exemplo com dados fictícios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;1,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<meta name="color-scheme" content="light dark">
+<style>
+/* Tokens de marca: troque aqui e só aqui. Ver references/design-system.md */
+:root {
+  --accent: #2449C8; --accent-soft: #5B78E6; --accent-text: #2449C8;
+  --ink: #1a1612; --ink-soft: #3d342b; --ink-mute: #7a6f63;
+  --paper: #f5f1ea; --paper-warm: #ede6d9; --highlight: #e4e9fb;
+  --rule: #d4c9b8; --rule-soft: #e5dccb;
+  --olive: #6b6d3a; --danger: #a64545;
+  --olive-bg: #ecf0e3; --danger-bg: #f5e6e6;
+  --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --sans: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --accent: #8FA6FF; --accent-soft: #8FA6FF; --accent-text: #8FA6FF;
+    --ink: #EEE6DA; --ink-soft: #C9BFB2; --ink-mute: #9A8F82;
+    --paper: #17130F; --paper-warm: #211C17; --highlight: #1E2440;
+    --rule: #3A332C; --rule-soft: #2A241F; --olive: #A4A66A; --danger: #D98080;
+    --olive-bg: #25271A; --danger-bg: #331C1C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --accent: #8FA6FF; --accent-soft: #8FA6FF; --accent-text: #8FA6FF;
+  --ink: #EEE6DA; --ink-soft: #C9BFB2; --ink-mute: #9A8F82;
+  --paper: #17130F; --paper-warm: #211C17; --highlight: #1E2440;
+  --rule: #3A332C; --rule-soft: #2A241F; --olive: #A4A66A; --danger: #D98080;
+  --olive-bg: #25271A; --danger-bg: #331C1C;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+body {
+  font-family: var(--sans); background: var(--paper); color: var(--ink);
+  line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip;
+  font-variant-numeric: tabular-nums;
+}
+.container { max-width: 1080px; margin: 0 auto; padding: 3.5rem clamp(16px, 4vw, 2rem) 5rem; }
+
+.eyebrow {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.7rem;
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--ink-mute); margin-bottom: 1.5rem;
+}
+.eyebrow .ctx { color: var(--accent-text); }
+.sep { color: var(--rule); }
+.logo-mark { width: auto; display: block; }
+.logo-mark.eyebrow-size { height: 18px; }
+.logo-mark.footer-size { height: 16px; }
+
+h1.hero {
+  font-family: var(--display); font-weight: 600;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem); line-height: 1.05;
+  letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+h1.hero em { font-style: italic; color: var(--accent); }
+.lede {
+  font-family: var(--display); font-size: 1.15rem; line-height: 1.55;
+  color: var(--ink-soft); max-width: 38em; margin-bottom: 2rem;
+}
+
+.pills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+.pill {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.05em;
+  padding: 0.3rem 0.65rem; border: 1px solid var(--rule); border-radius: 2px;
+  color: var(--ink-soft);
+}
+.pill b { font-weight: 500; color: var(--ink-mute); margin-right: 0.4rem; }
+.pill.ok { background: var(--olive-bg); border-color: transparent; color: var(--olive); }
+.pill.med { background: var(--highlight); border-color: transparent; color: var(--accent-text); }
+
+.tldr {
+  background: var(--paper-warm); border-left: 3px solid var(--accent);
+  padding: 1.5rem 1.75rem; margin-bottom: 1rem;
+  font-family: var(--display); font-size: 1.02rem; color: var(--ink-soft);
+}
+.tldr strong {
+  display: block; font-family: var(--mono); font-size: 0.7rem; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink); margin-bottom: 0.5rem;
+}
+
+h2.section-h {
+  font-family: var(--display); font-weight: 600; font-size: 1.8rem;
+  letter-spacing: -0.015em; line-height: 1.15;
+  margin: 3.5rem 0 1rem; padding-top: 2.5rem; border-top: 2px solid var(--ink);
+  display: flex; align-items: baseline; gap: 1rem;
+}
+h2.section-h .num { font-family: var(--mono); font-size: 0.7rem; font-weight: 400; color: var(--accent-text); letter-spacing: 0.08em; }
+h2.section-h em { font-style: italic; color: var(--accent); }
+p { margin-bottom: 1rem; max-width: 44em; color: var(--ink-soft); }
+p strong { color: var(--ink); font-weight: 600; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--paper-warm); padding: 0.1em 0.35em; border-radius: 2px; }
+
+.signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.signal { border: 1px solid var(--rule); padding: 1.25rem 1.5rem; }
+.signal .k { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); }
+.signal .v { font-family: var(--display); font-size: 2.4rem; line-height: 1.1; letter-spacing: -0.02em; margin: 0.35rem 0 0.25rem; }
+.signal .d { font-size: 0.85rem; color: var(--ink-mute); }
+.signal.hot { border-color: var(--accent); background: var(--highlight); }
+.signal.hot .v { color: var(--accent-text); }
+
+.diagram { margin: 1.5rem 0; padding: 1.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.caption { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-mute); margin-bottom: 1rem; }
+.diagram svg { width: 100%; height: auto; display: block; }
+.scroll-x { overflow-x: auto; }
+.scroll-x svg { min-width: 640px; }
+
+svg .box { fill: var(--paper-warm); stroke: var(--ink); stroke-width: 1; }
+svg .box-hot { fill: var(--highlight); stroke: var(--accent); stroke-width: 1.5; }
+svg .t-mono { font-family: var(--mono); font-size: 10px; fill: var(--ink-mute); letter-spacing: 0.8px; }
+svg .t-mono-hot { font-family: var(--mono); font-size: 10px; fill: var(--accent-text); letter-spacing: 0.8px; }
+svg .t-title { font-family: var(--display); font-size: 14px; font-weight: 600; fill: var(--ink); }
+svg .t-sub { font-family: var(--sans); font-size: 11px; fill: var(--ink-mute); }
+svg .arrow { stroke: var(--ink); stroke-width: 1; fill: none; }
+svg .axis { stroke: var(--rule); stroke-width: 1; }
+svg .grid { stroke: var(--rule-soft); stroke-width: 1; }
+svg .line-hot { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-ghost { stroke: var(--ink-mute); stroke-width: 1.25; stroke-dasharray: 5 4; fill: none; }
+svg .dot { fill: var(--paper); stroke: var(--accent); stroke-width: 2; }
+svg .dot-ticket { fill: var(--accent); stroke: var(--accent); }
+
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+table.simple { width: 100%; border-collapse: collapse; font-size: 0.92rem; min-width: 560px; }
+table.simple th, table.simple td { text-align: left; padding: 0.75rem 0.85rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.simple th { font-family: var(--mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-mute); font-weight: 500; border-bottom: 2px solid var(--ink); }
+table.simple td.mono { font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; }
+table.simple td.num { font-family: var(--mono); font-size: 0.85rem; text-align: right; white-space: nowrap; }
+table.simple th.num { text-align: right; }
+.sev { font-family: var(--mono); font-size: 0.68rem; padding: 0.18rem 0.5rem; border-radius: 2px; letter-spacing: 0.05em; font-weight: 500; display: inline-block; white-space: nowrap; }
+.sev.high { background: var(--danger-bg); color: var(--danger); }
+.sev.med { background: var(--highlight); color: var(--accent-text); }
+.sev.low { background: var(--olive-bg); color: var(--olive); }
+
+.codeblock { background: #1a1612; color: #EEE6DA; font-family: var(--mono); font-size: 0.8rem; line-height: 1.7; padding: 1.25rem 1.5rem; margin: 1.25rem 0; overflow-x: auto; border-radius: 2px; }
+.codeblock .lbl { display: block; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: #9A8F82; margin-bottom: 0.75rem; }
+.codeblock .del { color: #D98080; }
+.codeblock .add { color: #A4A66A; }
+.codeblock .cm { color: #9A8F82; }
+.codeblock pre { font: inherit; white-space: pre; }
+
+.callout { background: var(--highlight); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-family: var(--display); font-size: 1.1rem; line-height: 1.45; color: var(--ink); max-width: 44em; }
+
+footer { margin-top: 4.5rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 0.72rem; color: var(--ink-mute); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+footer .footer-left { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .container { padding: 2.5rem 16px 4rem; }
+  h1.hero { font-size: 2.2rem; }
+  h2.section-h { font-size: 1.5rem; }
+  .signals { grid-template-columns: 1fr; }
+  .signal .v { font-size: 2rem; }
+}
+</style>
+<script>(function(){var t=new URLSearchParams(location.search).get('tema');if(t)document.documentElement.dataset.theme=t==='escuro'?'dark':'light';})();</script>
+</head>
+<body>
+<div class="container">
+
+  <div class="eyebrow">
+    <span>Investigação de ticket</span>
+    <span class="sep">·</span>
+    <span class="ctx">Exemplo · dados fictícios</span>
+  </div>
+
+  <h1 class="hero">O desconto que <em>sumiu</em> na pista.</h1>
+
+  <p class="lede">Um cliente resgatou um voucher de 10% e recebeu menos do que o combinado. O código tinha um defeito, mas não era ele que explicava o valor. A resposta estava nas vendas.</p>
+
+  <div class="pills">
+    <span class="pill"><b>Ticket</b>EX-0412</span>
+    <span class="pill med"><b>Severidade</b>média</span>
+    <span class="pill ok"><b>Status</b>causa confirmada</span>
+    <span class="pill"><b>Rede</b>Rede Exemplo</span>
+    <span class="pill"><b>Fontes</b>código + banco de vendas</span>
+  </div>
+
+  <div class="tldr">
+    <strong>Resumo</strong>
+    O ticket é procedente. O cliente tinha dois benefícios da mesma categoria: um desconto automático por litro e um voucher de 10% resgatado com pontos. A venda consumiu o voucher e aplicou só o desconto por litro. Ele perdeu os pontos e R$ 10,00 de desconto. A correção em andamento no código não resolve esse caso.
+  </div>
+
+  <h2 class="section-h"><span class="num">01</span><span>O que o ticket <em>dizia</em></span></h2>
+  <p>Abastecimento de 40 litros, R$ 300,00 no total. O voucher prometia 10% com teto de R$ 30,00. O cupom fiscal mostrou R$ 20,00.</p>
+
+  <div class="signals">
+    <div class="signal"><div class="k">Esperado</div><div class="v">R$ 30,00</div><div class="d">10% de R$ 300,00, dentro do teto</div></div>
+    <div class="signal"><div class="k">Aplicado</div><div class="v">R$ 20,00</div><div class="d">valor no cupom fiscal</div></div>
+    <div class="signal hot"><div class="k">Diferença</div><div class="v">R$ 10,00</div><div class="d">mais 450 pontos gastos no resgate</div></div>
+  </div>
+
+  <h2 class="section-h"><span class="num">02</span><span>Por onde o desconto <em>passa</em></span></h2>
+  <p>A regra de desconto atravessa quatro serviços antes de chegar à bomba. O cálculo roda no serviço de recompensas. A baixa do voucher acontece em outro lugar, no serviço de resgate, e os dois não conversam.</p>
+
+  <div class="diagram">
+    <div class="caption">Caminho da requisição · do app à pista</div>
+    <div class="scroll-x">
+    <svg viewBox="0 0 960 190" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fluxo da requisição de desconto por cinco etapas">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"/></marker></defs>
+      <rect class="box" x="4" y="40" width="150" height="72"/>
+      <text class="t-mono" x="16" y="60">01 · ENTRADA</text>
+      <text class="t-title" x="16" y="82">App do motorista</text>
+      <text class="t-sub" x="16" y="100">resgata o voucher</text>
+
+      <rect class="box" x="204" y="40" width="150" height="72"/>
+      <text class="t-mono" x="216" y="60">02 · GATEWAY</text>
+      <text class="t-title" x="216" y="82">API de borda</text>
+      <text class="t-sub" x="216" y="100">roteia a chamada</text>
+
+      <rect class="box" x="404" y="40" width="150" height="72"/>
+      <text class="t-mono" x="416" y="60">03 · CLIENTES</text>
+      <text class="t-title" x="416" y="82">Motor do cálculo</text>
+      <text class="t-sub" x="416" y="100">monta o pedido</text>
+
+      <rect class="box" x="604" y="40" width="150" height="72"/>
+      <text class="t-mono" x="616" y="60">04 · RECOMPENSAS</text>
+      <text class="t-title" x="616" y="82">Regra e teto</text>
+      <text class="t-sub" x="616" y="100">defeito 1 · teto</text>
+
+      <rect class="box-hot" x="804" y="40" width="152" height="72"/>
+      <text class="t-mono-hot" x="816" y="60">05 · RESGATE</text>
+      <text class="t-title" x="816" y="82">Baixa do voucher</text>
+      <text class="t-sub" x="816" y="100">defeito 2 · causa</text>
+
+      <path class="arrow" d="M154 76 H200" marker-end="url(#ah)"/>
+      <path class="arrow" d="M354 76 H400" marker-end="url(#ah)"/>
+      <path class="arrow" d="M554 76 H600" marker-end="url(#ah)"/>
+      <path class="arrow" d="M754 76 H800" marker-end="url(#ah)"/>
+
+      <path class="arrow" d="M880 112 V150 H679 V116" stroke-dasharray="4 4" marker-end="url(#ah)"/>
+      <text class="t-mono-hot" x="780" y="174" text-anchor="middle">SEM RECONCILIAÇÃO ENTRE OS DOIS BENEFÍCIOS</text>
+    </svg>
+    </div>
+  </div>
+
+  <h2 class="section-h"><span class="num">03</span><span>Três hipóteses, uma <em>sobrevive</em></span></h2>
+  <p>A primeira hipótese era um defeito real e já tinha correção aberta. O problema é que ela não produzia o número do ticket. Cada hipótese foi testada contra o valor observado, R$ 20,00.</p>
+
+  <div class="table-wrap">
+  <table class="simple">
+    <thead><tr><th>Hipótese</th><th>Evidência</th><th class="num">Daria</th><th>Veredito</th></tr></thead>
+    <tbody>
+      <tr><td><strong>H1</strong> · o teto lê o campo errado</td><td>Defeito existe no serviço de recompensas, com correção aberta</td><td class="num">R$ 10,00</td><td><span class="sev med">real, mas não explica</span></td></tr>
+      <tr><td><strong>H2</strong> · um campo se perde entre serviços</td><td>O transporte entrega todos os campos; o padrão só afrouxa o limite</td><td class="num">R$ 30,00</td><td><span class="sev high">descartada</span></td></tr>
+      <tr><td><strong>H3</strong> · dois benefícios concorrem</td><td>Desconto de R$ 0,50 por litro aplicado no lugar do voucher</td><td class="num">R$ 20,00</td><td><span class="sev low">confirmada</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 class="section-h"><span class="num">04</span><span>O que as vendas <em>mostraram</em></span></h2>
+  <p>Seis vendas do mesmo cliente, em volumes diferentes. Todas caem sobre a mesma reta: R$ 0,50 por litro. Nenhuma se aproxima do que um desconto de 10% daria. O voucher nunca foi aplicado a este cliente.</p>
+
+  <div class="diagram">
+    <div class="caption">Desconto por venda × litros · mesmo cliente, 6 vendas · consulta ao banco de vendas</div>
+    <div class="scroll-x">
+    <svg viewBox="0 0 960 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seis vendas alinhadas na reta de cinquenta centavos por litro, abaixo da reta de dez por cento">
+      <!-- x: 10L=80 .. 55L=900 (18.222 px/L) · y: R$0=310 .. R$45=40 (6 px/R$) -->
+      <line class="grid" x1="80" y1="250" x2="900" y2="250"/>
+      <line class="grid" x1="80" y1="190" x2="900" y2="190"/>
+      <line class="grid" x1="80" y1="130" x2="900" y2="130"/>
+      <line class="grid" x1="80" y1="70" x2="900" y2="70"/>
+      <line class="axis" x1="80" y1="310" x2="900" y2="310"/>
+      <text class="t-mono" x="68" y="314" text-anchor="end">R$ 0</text>
+      <text class="t-mono" x="68" y="254" text-anchor="end">10</text>
+      <text class="t-mono" x="68" y="194" text-anchor="end">20</text>
+      <text class="t-mono" x="68" y="134" text-anchor="end">30</text>
+      <text class="t-mono" x="68" y="74" text-anchor="end">40</text>
+      <text class="t-mono" x="262" y="332" text-anchor="middle">20 L</text>
+      <text class="t-mono" x="444" y="332" text-anchor="middle">30 L</text>
+      <text class="t-mono" x="627" y="332" text-anchor="middle">40 L</text>
+      <text class="t-mono" x="809" y="332" text-anchor="middle">50 L</text>
+
+      <!-- 10% do valor (R$ 7,50/L): 10L=7,50 → y 265 · teto R$ 30 a partir de 40 L -->
+      <path class="line-ghost" d="M80 265 L627 130 L900 130"/>
+      <text class="t-mono" x="893" y="120" text-anchor="end">VOUCHER DE 10% · TETO R$ 30</text>
+
+      <!-- R$ 0,50/L: 10L=5 → y 280 · 55L=27,50 → y 145 -->
+      <path class="line-hot" d="M80 280 L900 145"/>
+      <text class="t-mono-hot" x="893" y="196" text-anchor="end">R$ 0,50 POR LITRO</text>
+
+      <circle class="dot" cx="262" cy="250" r="5"/>
+      <circle class="dot" cx="417" cy="224.5" r="5"/>
+      <circle class="dot" cx="499" cy="211" r="5"/>
+      <circle class="dot dot-ticket" cx="627" cy="190" r="6.5"/>
+      <circle class="dot" cx="703" cy="177.4" r="5"/>
+      <circle class="dot" cx="809" cy="160" r="5"/>
+
+      <line class="line-ghost" x1="627" y1="182" x2="627" y2="138"/>
+      <text class="t-title" x="639" y="216">Venda do ticket</text>
+      <text class="t-sub" x="639" y="232">40 L · R$ 20,00 aplicados</text>
+      <text class="t-mono-hot" x="616" y="164" text-anchor="end">− R$ 10,00</text>
+    </svg>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+  <table class="simple">
+    <thead><tr><th>Venda</th><th class="num">Litros</th><th class="num">Valor</th><th class="num">Desconto</th><th class="num">Por litro</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">V-1041</td><td class="num">20,0</td><td class="num">R$ 150,00</td><td class="num">R$ 10,00</td><td class="num">0,50</td></tr>
+      <tr><td class="mono">V-1187</td><td class="num">28,5</td><td class="num">R$ 213,75</td><td class="num">R$ 14,25</td><td class="num">0,50</td></tr>
+      <tr><td class="mono">V-1302</td><td class="num">33,0</td><td class="num">R$ 247,50</td><td class="num">R$ 16,50</td><td class="num">0,50</td></tr>
+      <tr><td class="mono"><strong>V-1466 · ticket</strong></td><td class="num">40,0</td><td class="num">R$ 300,00</td><td class="num">R$ 20,00</td><td class="num">0,50</td></tr>
+      <tr><td class="mono">V-1529</td><td class="num">44,2</td><td class="num">R$ 331,50</td><td class="num">R$ 22,10</td><td class="num">0,50</td></tr>
+      <tr><td class="mono">V-1610</td><td class="num">50,0</td><td class="num">R$ 375,00</td><td class="num">R$ 25,00</td><td class="num">0,50</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 class="section-h"><span class="num">05</span><span>A causa, no <em>código</em></span></h2>
+  <p>O voucher é marcado como usado na validação do PIN, antes de a venda confirmar qual benefício entrou. Quando o desconto automático vence a disputa, o voucher já foi consumido.</p>
+
+  <div class="codeblock">
+    <span class="lbl">servico-de-resgate · voucher.service · trecho ilustrativo</span>
+<pre>  async validarPin(pin, venda) {
+    const voucher = await this.buscar(pin);
+<span class="del">-   await this.marcarComoUsado(voucher);      <span class="cm">// queima antes de aplicar</span></span>
+    return voucher;
+  }
+
+<span class="add">+ async confirmarVenda(venda) {
++   const aplicado = this.escolherMaiorBeneficio(venda);
++   if (aplicado.tipo === 'voucher') await this.marcarComoUsado(aplicado);
++ }</span></pre>
+  </div>
+
+  <div class="callout">O sistema nunca compara os dois benefícios. A decisão acaba ficando com o equipamento da pista, o que explica por que o problema aparece em alguns postos e em outros não.</div>
+
+  <h2 class="section-h"><span class="num">06</span><span>Plano de <em>ação</em></span></h2>
+
+  <div class="table-wrap">
+  <table class="simple">
+    <thead><tr><th>Ação</th><th>Dono</th><th>Prazo</th><th>Prioridade</th></tr></thead>
+    <tbody>
+      <tr><td>Devolver os 450 pontos e creditar R$ 10,00 ao cliente</td><td>Suporte</td><td class="mono">hoje</td><td><span class="sev high">alta</span></td></tr>
+      <tr><td>Mover a baixa do voucher para depois da confirmação da venda</td><td>Engenharia</td><td class="mono">próxima sprint</td><td><span class="sev high">alta</span></td></tr>
+      <tr><td>Definir a regra quando dois benefícios concorrem: vale o maior</td><td>Produto</td><td class="mono">esta semana</td><td><span class="sev med">média</span></td></tr>
+      <tr><td>Levantar outros clientes com o mesmo par de benefícios</td><td>Dados</td><td class="mono">esta semana</td><td><span class="sev med">média</span></td></tr>
+      <tr><td>Responder ao posto com a causa e o prazo da correção</td><td>Atendimento</td><td class="mono">hoje</td><td><span class="sev low">baixa</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <footer>
+    <span class="footer-left">
+      <span>Investigação de ticket · exemplo</span>
+    </span>
+    <span>Rede, cliente, vendas e valores são fictícios</span>
+  </footer>
+
+</div>
+</body>
+</html>
