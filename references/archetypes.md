@@ -1,6 +1,6 @@
 # Archetype Catalog
 
-Catálogo dos 16 archetypes de documentos HTML produzidos por esta skill. Para cada um: quando usar, estrutura canônica, componentes obrigatórios, exemplos do que entra em cada seção.
+Catálogo dos 17 archetypes de documentos HTML produzidos por esta skill. Para cada um: quando usar, estrutura canônica, componentes obrigatórios, exemplos do que entra em cada seção.
 
 ## Quando ler este arquivo
 
@@ -37,6 +37,9 @@ Catálogo dos 16 archetypes de documentos HTML produzidos por esta skill. Para c
 14. **interactive-mockup** · telas navegáveis com toggle
 15. **design-system-spec** · biblioteca de componentes
 16. **gallery-index** · navegação entre múltiplos arquivos
+
+### Narrativa & Editorial
+17. **narrativa-ilustrada** · história em capítulos com aquarelas animadas, gráficos interativos e lições
 
 ---
 
@@ -385,6 +388,18 @@ Na dúvida, expanda a estrutura do pr-writeup com mais detalhe de diff.
 8. Footer
 
 **Componentes obrigatórios:** intro-aside, cadeia SVG, cards grandes hover-able.
+
+---
+
+## 17. narrativa-ilustrada
+
+**Quando usar:** é preciso *contar* (a história de um projeto, de um cliente ou de uma estratégia; o resumo de um podcast, livro ou entrevista; um pitch longo) e a peça vai circular fora do time ou precisa encantar. Estilo NYT, New Yorker ou The Pudding.
+
+**Estrutura canônica:** medidor fixo → abertura (kicker, h1, dek em itálico, byline) → pintura hero → capítulos (placa + h2 + prosa + 1 visual forte + lição em comprovante) → manual com as lições recolhidas → rodapé com fontes e método.
+
+**Componentes obrigatórios:** medidor de progresso, placa por capítulo, uma lição por capítulo, de 2 a 5 aquarelas pintadas por código com um comportamento cada, de 2 a 5 gráficos interativos com tabela, manual no fim.
+
+**Guia completo:** `references/narrativa-ilustrada.md` (+ `aquarela-opencv.md`, `cenas-e-dataviz.md`).
 
 ---
 

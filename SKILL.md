@@ -1,11 +1,14 @@
 ---
 name: html-artifacts
-description: Use sempre que alguém pedir um documento estruturado para ser lido por outras pessoas — relatório, análise, spec, plano de implementação, RFC, post-mortem, investigação de bug ou ticket, status semanal, roadmap, deck ou dashboard — inclusive em pedidos casuais como "monta um relatório" ou "escreve uma spec". Produz um HTML standalone, com identidade visual consistente, tema claro e escuro, mobile e diagramas em SVG inline. Não use para resposta de chat, lista curta, rascunho de email ou código sem narrativa.
+description: Use sempre que alguém pedir um documento estruturado para ser lido por outras pessoas — relatório, análise, spec, plano de implementação, RFC, post-mortem, investigação de bug ou ticket, status semanal, roadmap, deck ou dashboard — inclusive em pedidos casuais como "monta um relatório" ou "escreve uma spec". Também é a skill para peças editoriais caprichadas — narrativa ilustrada ou scrollytelling estilo NYT, New Yorker ou The Pudding, "conta a história de X", companion de podcast, livro ou entrevista, aquarelas e ilustrações pintadas por código (OpenCV), gráficos interativos e animações de cena. Produz um HTML standalone, com identidade visual consistente, tema claro e escuro, mobile e diagramas em SVG inline. Não use para resposta de chat, lista curta, rascunho de email ou código sem narrativa.
 ---
 
 # HTML Artifacts
 
-Skill para produzir documentos HTML standalone, com identidade visual consistente e feitos para leitura.
+Skill para produzir documentos HTML standalone, com identidade visual consistente e feitos para leitura. Tem dois registros:
+
+- **Documento** (archetypes 1 a 16): relatório, spec, deck, status, RFC, investigação. Denso, feito para consultar e decidir.
+- **Narrativa ilustrada** (archetype 17): história contada capítulo por capítulo, com aquarelas pintadas por código que se mexem, gráficos que respondem e uma lição destacada por capítulo. Feita para encantar e convencer.
 
 ## Filosofia
 
@@ -24,8 +27,9 @@ Quando o agente faz a busca, o gargalo passa a ser a atenção de quem lê. Um d
 | roadmap, OKRs | roadmap |
 | mockup de tela, protótipo | interactive-mockup |
 | vários documentos ligados | gallery-index |
+| "conta a história", "narra", companion ilustrado, estilo NYT ou New Yorker, peça que precisa encantar | **narrativa-ilustrada** |
 
-A estrutura canônica de cada um está em `references/archetypes.md`. Se o pedido for vago e couber em mais de um, pergunte ao usuário com duas ou três opções concretas.
+A estrutura canônica de cada um está em `references/archetypes.md`. Se o pedido for vago e couber em mais de um, pergunte ao usuário com duas ou três opções concretas. Na dúvida entre documento e narrativa, a pergunta é: "é para consultar ou para contar?". A narrativa custa de três a cinco vezes mais trabalho, então só vá nela quando o pedido pedir capricho ou a peça for circular fora do time.
 
 ## Fluxo
 
@@ -37,6 +41,19 @@ A estrutura canônica de cada um está em `references/archetypes.md`. Se o pedid
 6. **Salve perto do assunto**, com nome em kebab-case, e diga ao usuário em duas a quatro frases o que o arquivo entrega.
 
 `examples/investigacao-ticket.html` é um documento completo, com dados fictícios, que serve de calibragem de nível.
+
+## Fluxo da narrativa ilustrada
+
+Leia `references/narrativa-ilustrada.md` inteiro antes de começar. Leia `references/aquarela-opencv.md` antes de pintar e `references/cenas-e-dataviz.md` antes de animar ou fazer gráfico.
+
+1. **Lições primeiro.** Liste os capítulos com uma lição de uma linha e o número-âncora de cada, a metáfora física e as cenas a pintar. Mostre ao usuário e só depois pinte.
+2. **Esqueleto.** `python3 scripts/nova_narrativa.py <pasta> --titulo "..."` cria `index.html`, `kit/`, `cenas/` e `layers/`.
+3. **Pinte.** Escreva `cenas/<nome>.json` e rode `uv run scripts/aquarela.py pintar cenas/<nome>.json --out layers --preview prev.jpg`. Abra a prévia, olhe e itere duas ou três vezes: a primeira versão sempre sai "vetor demais".
+4. **Monte e coreografe.** Gere o markup com `aquarela.py figura`, registre cada cena com `NK.cena(...)` e chame `NK.iniciar()` por último.
+5. **Teste** num servidor local (`python3 -m http.server`): desktop, 375px, tema escuro e `prefers-reduced-motion`.
+6. **Empacote.** `python3 scripts/empacotar.py <pasta>/index.html --saida <pasta>/<nome>.html` gera o arquivo único, abaixo de 3 MB.
+
+Os scripts de pintura precisam do [uv](https://docs.astral.sh/uv/), que instala OpenCV e NumPy sozinho na primeira execução. Os outros dois usam só a biblioteca padrão do Python.
 
 ## Regras de conteúdo
 
@@ -68,8 +85,16 @@ A skill vem com uma identidade neutra. Para aplicar a sua, edite apenas o bloco 
 | Arquivo | O que é |
 |---|---|
 | `references/design-system.md` | tokens, tipografia, espaçamento, componentes e como trocar a marca |
-| `references/archetypes.md` | 16 archetypes com estrutura canônica |
+| `references/archetypes.md` | 17 archetypes com estrutura canônica |
 | `references/svg-patterns.md` | padrões de diagrama em SVG |
 | `references/anti-patterns.md` | o que evitar e checklist final |
-| `assets/base-template.html` | ponto de partida com todos os componentes |
+| `references/narrativa-ilustrada.md` | archetype 17: estrutura, metáforas, componentes e checklist |
+| `references/aquarela-opencv.md` | como pintar por código: modelo físico, JSON da cena, receitas e erros comuns |
+| `references/cenas-e-dataviz.md` | motor de cenas (`NK.cena`), comportamentos e padrões de gráfico editorial |
+| `assets/base-template.html` | ponto de partida do registro documento, com todos os componentes |
+| `assets/narrativa.css` · `assets/narrativa-kit.js` | CSS e motor JS do registro narrativa |
+| `assets/cena-exemplo.json` · `assets/bleed.png` | cena inicial e máscara de entrada usadas pelo esqueleto |
+| `scripts/aquarela.py` | pinta cena JSON em camadas WEBP; também trata foto e foto histórica |
+| `scripts/nova_narrativa.py` | cria o esqueleto de uma narrativa numa pasta |
+| `scripts/empacotar.py` | transforma a pasta num HTML único |
 | `examples/investigacao-ticket.html` | exemplo completo, com dados fictícios |

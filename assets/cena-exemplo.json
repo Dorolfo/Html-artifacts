@@ -1,0 +1,864 @@
+{
+ "name": "posto",
+ "w": 1600,
+ "h": 860,
+ "seed": 21,
+ "paper": "#F5F1EA",
+ "ink": "#2A231E",
+ "frame": {
+  "margin": 34,
+  "ragged": 9
+ },
+ "objects": [
+  {
+   "name": "ceu",
+   "shapes": [
+    {
+     "type": "wash",
+     "rect": [
+      0,
+      0,
+      1600,
+      600
+     ],
+     "from": "#5F86B3",
+     "to": "#F3CDA0",
+     "density": 0.75,
+     "wet": 0.05,
+     "wobble": 0,
+     "pool_scale": 140
+    },
+    {
+     "type": "ellipse",
+     "mode": "lift",
+     "c": [
+      330,
+      150
+     ],
+     "r": [
+      190,
+      26
+     ],
+     "amount": 0.75,
+     "wobble": 18,
+     "soft": 3
+    },
+    {
+     "type": "ellipse",
+     "mode": "lift",
+     "c": [
+      470,
+      132
+     ],
+     "r": [
+      120,
+      20
+     ],
+     "amount": 0.7,
+     "wobble": 18,
+     "soft": 3
+    },
+    {
+     "type": "ellipse",
+     "mode": "lift",
+     "c": [
+      1050,
+      200
+     ],
+     "r": [
+      230,
+      24
+     ],
+     "amount": 0.7,
+     "wobble": 18,
+     "soft": 3
+    },
+    {
+     "type": "ellipse",
+     "mode": "lift",
+     "c": [
+      1300,
+      110
+     ],
+     "r": [
+      140,
+      18
+     ],
+     "amount": 0.65,
+     "wobble": 18,
+     "soft": 3
+    }
+   ]
+  },
+  {
+   "name": "morros",
+   "shapes": [
+    {
+     "type": "poly",
+     "pts": [
+      [
+       0,
+       560
+      ],
+      [
+       180,
+       470
+      ],
+      [
+       420,
+       520
+      ],
+      [
+       640,
+       455
+      ],
+      [
+       900,
+       515
+      ],
+      [
+       1150,
+       460
+      ],
+      [
+       1400,
+       505
+      ],
+      [
+       1600,
+       470
+      ],
+      [
+       1600,
+       600
+      ],
+      [
+       0,
+       600
+      ]
+     ],
+     "color": "#7E9479",
+     "density": 0.55,
+     "wobble": 6
+    }
+   ]
+  },
+  {
+   "name": "chao",
+   "shapes": [
+    {
+     "type": "wash",
+     "rect": [
+      0,
+      590,
+      1600,
+      270
+     ],
+     "from": "#A9A398",
+     "to": "#7F796F",
+     "density": 0.62,
+     "wet": 0.12,
+     "pool_scale": 120,
+     "wobble": 0
+    },
+    {
+     "type": "poly",
+     "pts": [
+      [
+       270,
+       612
+      ],
+      [
+       1020,
+       612
+      ],
+      [
+       1080,
+       690
+      ],
+      [
+       220,
+       690
+      ]
+     ],
+     "color": "#5E584F",
+     "density": 0.24,
+     "wet": 0.3,
+     "wobble": 14,
+     "offset": 0,
+     "soft": 7
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       1150,
+       860
+      ],
+      [
+       1260,
+       640
+      ]
+     ],
+     "width": 7,
+     "mode": "lift",
+     "amount": 0.55,
+     "wobble": 2
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       1350,
+       860
+      ],
+      [
+       1400,
+       640
+      ]
+     ],
+     "width": 7,
+     "mode": "lift",
+     "amount": 0.55,
+     "wobble": 2
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       1550,
+       860
+      ],
+      [
+       1540,
+       640
+      ]
+     ],
+     "width": 7,
+     "mode": "lift",
+     "amount": 0.55,
+     "wobble": 2
+    },
+    {
+     "type": "ellipse",
+     "mode": "lift",
+     "c": [
+      760,
+      780
+     ],
+     "r": [
+      260,
+      14
+     ],
+     "amount": 0.25,
+     "wobble": 10
+    }
+   ]
+  },
+  {
+   "name": "loja",
+   "shapes": [
+    {
+     "type": "rect",
+     "rect": [
+      1080,
+      410,
+      420,
+      200
+     ],
+     "color": "#EADFCB",
+     "density": 0.7,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1080,
+      390,
+      420,
+      34
+     ],
+     "color": "#2449C8",
+     "density": 0.85,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1080,
+      424,
+      420,
+      16
+     ],
+     "color": "#7E7365",
+     "density": 0.38,
+     "offset": 0
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1110,
+      455,
+      150,
+      100
+     ],
+     "color": "#6F95B4",
+     "density": 0.75,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1300,
+      450,
+      70,
+      160
+     ],
+     "color": "#56708A",
+     "density": 0.8,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1400,
+      455,
+      75,
+      100
+     ],
+     "color": "#6F95B4",
+     "density": 0.75,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      1440,
+      424,
+      60,
+      186
+     ],
+     "color": "#8E8372",
+     "density": 0.3,
+     "offset": 0
+    }
+   ],
+   "reserva": true
+  },
+  {
+   "name": "totem",
+   "shapes": [
+    {
+     "type": "rect",
+     "rect": [
+      140,
+      380,
+      18,
+      220
+     ],
+     "color": "#6A645C",
+     "density": 0.8,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      86,
+      230,
+      126,
+      150
+     ],
+     "color": "#2F2A26",
+     "density": 0.85,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      86,
+      230,
+      126,
+      34
+     ],
+     "color": "#2449C8",
+     "density": 0.9
+    },
+    {
+     "type": "rect",
+     "rect": [
+      96,
+      270,
+      106,
+      100
+     ],
+     "color": "#433B35",
+     "density": 0.5,
+     "offset": 0
+    }
+   ],
+   "reserva": true
+  },
+  {
+   "name": "cobertura",
+   "shapes": [
+    {
+     "type": "rect",
+     "rect": [
+      330,
+      320,
+      18,
+      290
+     ],
+     "color": "#B8B1A6",
+     "density": 0.75,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      930,
+      320,
+      18,
+      290
+     ],
+     "color": "#B8B1A6",
+     "density": 0.75,
+     "ink": true
+    },
+    {
+     "type": "poly",
+     "pts": [
+      [
+       250,
+       292
+      ],
+      [
+       1030,
+       292
+      ],
+      [
+       1010,
+       336
+      ],
+      [
+       270,
+       336
+      ]
+     ],
+     "color": "#EFE9DE",
+     "density": 0.6,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      262,
+      300,
+      756,
+      22
+     ],
+     "color": "#2449C8",
+     "density": 0.9
+    },
+    {
+     "type": "rect",
+     "rect": [
+      272,
+      336,
+      736,
+      12
+     ],
+     "color": "#7F786C",
+     "density": 0.45,
+     "offset": 0
+    }
+   ],
+   "reserva": true
+  },
+  {
+   "name": "bombas",
+   "shapes": [
+    {
+     "type": "rect",
+     "rect": [
+      470,
+      470,
+      64,
+      140
+     ],
+     "color": "#E7E1D6",
+     "density": 0.7,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      470,
+      470,
+      64,
+      26
+     ],
+     "color": "#2449C8",
+     "density": 0.9,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      482,
+      510,
+      40,
+      28
+     ],
+     "color": "#3B4A52",
+     "density": 0.85
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       534,
+       530
+      ],
+      [
+       562,
+       560
+      ],
+      [
+       560,
+       600
+      ]
+     ],
+     "width": 4,
+     "color": "#2A231E",
+     "density": 0.8
+    },
+    {
+     "type": "rect",
+     "rect": [
+      740,
+      470,
+      64,
+      140
+     ],
+     "color": "#E7E1D6",
+     "density": 0.7,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      740,
+      470,
+      64,
+      26
+     ],
+     "color": "#2449C8",
+     "density": 0.9,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      752,
+      510,
+      40,
+      28
+     ],
+     "color": "#3B4A52",
+     "density": 0.85
+    },
+    {
+     "type": "rect",
+     "rect": [
+      450,
+      606,
+      104,
+      12
+     ],
+     "color": "#B5AEA2",
+     "density": 0.7
+    },
+    {
+     "type": "rect",
+     "rect": [
+      720,
+      606,
+      104,
+      12
+     ],
+     "color": "#B5AEA2",
+     "density": 0.7
+    }
+   ],
+   "reserva": true
+  },
+  {
+   "name": "carro",
+   "layer": true,
+   "blend": "normal",
+   "shadow": {
+    "dx": 10,
+    "dy": 4,
+    "blur": 7,
+    "density": 0.45,
+    "squash": 0.22
+   },
+   "shapes": [
+    {
+     "type": "poly",
+     "pts": [
+      [
+       560,
+       640
+      ],
+      [
+       600,
+       585
+      ],
+      [
+       700,
+       568
+      ],
+      [
+       810,
+       568
+      ],
+      [
+       870,
+       600
+      ],
+      [
+       950,
+       612
+      ],
+      [
+       962,
+       668
+      ],
+      [
+       560,
+       672
+      ]
+     ],
+     "color": "#2F6FA8",
+     "density": 0.85,
+     "ink": true
+    },
+    {
+     "type": "poly",
+     "pts": [
+      [
+       625,
+       592
+      ],
+      [
+       700,
+       578
+      ],
+      [
+       800,
+       578
+      ],
+      [
+       848,
+       604
+      ],
+      [
+       625,
+       606
+      ]
+     ],
+     "color": "#C9DCEA",
+     "density": 0.6,
+     "ink": true
+    },
+    {
+     "type": "circle",
+     "c": [
+      640,
+      672
+     ],
+     "r": 28,
+     "color": "#2A2622",
+     "density": 0.95,
+     "ink": true
+    },
+    {
+     "type": "circle",
+     "c": [
+      880,
+      672
+     ],
+     "r": 28,
+     "color": "#2A2622",
+     "density": 0.95,
+     "ink": true
+    },
+    {
+     "type": "circle",
+     "c": [
+      640,
+      672
+     ],
+     "r": 11,
+     "color": "#BDB6AA",
+     "density": 0.8
+    },
+    {
+     "type": "circle",
+     "c": [
+      880,
+      672
+     ],
+     "r": 11,
+     "color": "#BDB6AA",
+     "density": 0.8
+    }
+   ]
+  },
+  {
+   "name": "frentista",
+   "layer": true,
+   "blend": "normal",
+   "shadow": {
+    "dx": 8,
+    "dy": 2,
+    "blur": 5,
+    "density": 0.35,
+    "squash": 0.18
+   },
+   "shapes": [
+    {
+     "type": "rect",
+     "rect": [
+      1000,
+      560,
+      30,
+      62
+     ],
+     "color": "#2E3440",
+     "density": 0.85,
+     "ink": true
+    },
+    {
+     "type": "poly",
+     "pts": [
+      [
+       992,
+       500
+      ],
+      [
+       1038,
+       500
+      ],
+      [
+       1044,
+       566
+      ],
+      [
+       986,
+       566
+      ]
+     ],
+     "color": "#2449C8",
+     "density": 0.9,
+     "ink": true
+    },
+    {
+     "type": "circle",
+     "c": [
+      1015,
+      482
+     ],
+     "r": 16,
+     "color": "#C08A62",
+     "density": 0.75,
+     "ink": true
+    },
+    {
+     "type": "rect",
+     "rect": [
+      998,
+      462,
+      34,
+      10
+     ],
+     "color": "#2449C8",
+     "density": 0.9
+    }
+   ]
+  },
+  {
+   "name": "passaros",
+   "layer": true,
+   "blend": "multiply",
+   "ink_width": 2.6,
+   "shapes": [
+    {
+     "type": "line",
+     "pts": [
+      [
+       1180,
+       140
+      ],
+      [
+       1192,
+       132
+      ],
+      [
+       1204,
+       140
+      ]
+     ],
+     "width": 3,
+     "color": "#2A231E",
+     "density": 0.85,
+     "wobble": 0.5
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       1222,
+       122
+      ],
+      [
+       1232,
+       115
+      ],
+      [
+       1242,
+       122
+      ]
+     ],
+     "width": 3,
+     "color": "#2A231E",
+     "density": 0.85,
+     "wobble": 0.5
+    },
+    {
+     "type": "line",
+     "pts": [
+      [
+       1260,
+       150
+      ],
+      [
+       1269,
+       144
+      ],
+      [
+       1278,
+       150
+      ]
+     ],
+     "width": 3,
+     "color": "#2A231E",
+     "density": 0.85,
+     "wobble": 0.5
+    }
+   ]
+  }
+ ]
+}

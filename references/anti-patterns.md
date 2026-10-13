@@ -178,7 +178,7 @@ O documento sem fonts vira Times New Roman + Arial. Fica genérico instantaneame
 
 ### ❌ Postamble longo após entregar o arquivo
 
-Depois de salvar no vault e mostrar com `SendUserFile`, encerre com 2-4 frases curtas dizendo o que cada arquivo entrega. Não escreva mais um relatório explicando o relatório. O usuário vai abrir o arquivo — deixa o arquivo falar.
+Depois de salvar e mostrar o arquivo ao usuário, encerre com 2-4 frases curtas dizendo o que cada arquivo entrega. Não escreva mais um relatório explicando o relatório. O usuário vai abrir o arquivo — deixa o arquivo falar.
 
 ### ❌ Conversação dentro do HTML
 
